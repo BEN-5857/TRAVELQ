@@ -1,31 +1,33 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-// Defer AI client initialization to avoid errors at build time if the API_KEY is missing.
+// 延遲 AI 客戶端初始化，以避免在缺少 API_KEY 的情況下於建置時出錯。
 let ai: GoogleGenAI | null = null;
 
 /**
- * Gets the Gemini AI client instance.
- * If not already initialized, it initializes the client using the API key
- * from the environment variables. This pattern is called "Lazy Initialization".
+ * 獲取 Gemini AI 客戶端實例。
+ * 如果尚未初始化，它將使用環境變數中的 API 金鑰進行初始化。
  */
 function getAiClient(): GoogleGenAI {
     if (!ai) {
-        // Fix: The API key must be obtained from process.env.API_KEY according to the guidelines. This change also resolves the TypeScript error regarding 'import.meta.env'.
+        // FIX: The API key must be obtained exclusively from `process.env.API_KEY`.
+        // This also resolves the TypeScript error "Property 'env' does not exist on type 'ImportMeta'".
         const apiKey = process.env.API_KEY;
 
         if (!apiKey) {
-            // This error message will be displayed in the user's browser console for debugging.
-            console.error("API_KEY environment variable is not set. Please check your project settings.");
-            throw new Error("API_KEY environment variable is not set.");
+            // 此錯誤訊息將顯示在使用者的瀏覽器控制台中，以利除錯。
+            console.error("找不到 API_KEY 環境變數。請確保已在 Vercel 或 .env 檔案中正確設定。");
+            throw new Error("API 設定錯誤。請檢查部署設定。");
         }
-        ai = new GoogleGenAI({ apiKey: apiKey });
+        
+        // 使用從環境變數中獲取的金鑰初始化客戶端。
+        ai = new GoogleGenAI({ apiKey });
     }
     return ai;
 }
 
 export async function findNearbyPlaces(query: string, location: { latitude: number, longitude: number }): Promise<GenerateContentResponse> {
   try {
-    const client = getAiClient(); // Get the client only when it's actually needed.
+    const client = getAiClient(); // 僅在實際需要時才獲取客戶端。
     const response = await client.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `Find ${query} near me.`,
