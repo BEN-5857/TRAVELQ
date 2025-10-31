@@ -381,7 +381,7 @@ const NearbySearch: React.FC<{ t: any }> = ({ t }) => {
 const Footer: React.FC<{ t: any }> = ({ t }) => {
     const [visitorCount] = useState(Math.floor(Math.random() * 900000) + 100000);
     return (
-        <footer className="w-full text-center py-6 mt-8 text-sm opacity-60 pb-24"> {/* Added padding-bottom */}
+        <footer className="w-full text-center py-6 mt-8 text-sm opacity-60">
             <p>{t.visitors}: {visitorCount.toLocaleString()}</p>
             <p>{t.copyright}</p>
         </footer>
@@ -398,7 +398,7 @@ const App: React.FC = () => {
         <div className={`min-h-screen w-full font-sans transition-colors duration-500 ${theme}`}>
             <div className="theme-bg text-color min-h-screen">
                 <Header lang={lang} setLang={setLang} setTheme={setTheme} t={t} />
-                <main className="container mx-auto p-4 flex flex-col items-center gap-8">
+                <main className="container mx-auto p-4 flex flex-col items-center gap-8 pb-24">
                     <div className="w-full max-w-2xl">
                         <CurrencyConverter t={t} />
                     </div>

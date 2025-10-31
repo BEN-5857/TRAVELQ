@@ -1,30 +1,31 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-// 將 ai client 的初始化延遲，避免在 build time 就因找不到 API_KEY 而報錯
+// Defer AI client initialization to avoid errors at build time if the API_KEY is missing.
 let ai: GoogleGenAI | null = null;
 
 /**
- * 獲取 Gemini AI 客戶端實例。
- * 如果尚未初始化，則使用環境變數中的 API 金鑰進行初始化。
- * 這種模式稱為「延遲初始化」(Lazy Initialization)。
+ * Gets the Gemini AI client instance.
+ * If not already initialized, it initializes the client using the API key
+ * from the environment variables. This pattern is called "Lazy Initialization".
  */
 function getAiClient(): GoogleGenAI {
     if (!ai) {
-        // FIX: Per coding guidelines, the API key must be retrieved from process.env.API_KEY.
-        const API_KEY = process.env.API_KEY;
-        if (!API_KEY) {
-            // 這個錯誤現在只會在函數被調用且環境變數未設定時拋出
-            console.error("API_KEY environment variable is not set.");
+        // Fix: The API key must be obtained from process.env.API_KEY according to the guidelines. This change also resolves the TypeScript error regarding 'import.meta.env'.
+        const apiKey = process.env.API_KEY;
+
+        if (!apiKey) {
+            // This error message will be displayed in the user's browser console for debugging.
+            console.error("API_KEY environment variable is not set. Please check your project settings.");
             throw new Error("API_KEY environment variable is not set.");
         }
-        ai = new GoogleGenAI({ apiKey: API_KEY });
+        ai = new GoogleGenAI({ apiKey: apiKey });
     }
     return ai;
 }
 
 export async function findNearbyPlaces(query: string, location: { latitude: number, longitude: number }): Promise<GenerateContentResponse> {
   try {
-    const client = getAiClient(); // 在實際需要時才獲取 client
+    const client = getAiClient(); // Get the client only when it's actually needed.
     const response = await client.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `Find ${query} near me.`,
@@ -43,7 +44,7 @@ export async function findNearbyPlaces(query: string, location: { latitude: numb
     
     return response;
   } catch (error) {
-    console.error("Gemini API 請求失敗 (findNearbyPlaces):", error);
-    throw new Error("與 Gemini API 通信時發生錯誤。");
+    console.error("Gemini API request failed (findNearbyPlaces):", error);
+    throw new Error("An error occurred while communicating with the Gemini API.");
   }
 }
