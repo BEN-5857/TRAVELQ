@@ -70,8 +70,8 @@ const AdsenseBanner: React.FC = () => {
       <div className="w-full max-w-lg h-[50px] text-center">
         <ins className="adsbygoogle"
              style={{ display: 'block', width: '100%', height: '50px' }}
-             data-ad-client="ca-pub-pub-3043955817472909" // 您的發布商 ID
-             data-ad-slot="Y8594833592"             // 您的廣告單元 ID
+             data-ad-client="ca-pub-3043955817472909" // 您的發布商 ID
+             data-ad-slot="8594833592"             // 您的廣告單元 ID
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
       </div>

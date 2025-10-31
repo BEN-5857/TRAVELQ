@@ -9,7 +9,6 @@ let ai: GoogleGenAI | null = null;
  */
 function getAiClient(): GoogleGenAI {
     if (!ai) {
-<<<<<<< HEAD
         // FIX: The API key must be obtained exclusively from `process.env.API_KEY`.
         // This also resolves the TypeScript error "Property 'env' does not exist on type 'ImportMeta'".
         const apiKey = process.env.API_KEY;
@@ -18,14 +17,6 @@ function getAiClient(): GoogleGenAI {
             // 此錯誤訊息將顯示在使用者的瀏覽器控制台中，以利除錯。
             console.error("找不到 API_KEY 環境變數。請確保已在 Vercel 或 .env 檔案中正確設定。");
             throw new Error("API 設定錯誤。請檢查部署設定。");
-=======
-        // Fix: Use process.env.API_KEY as per the coding guidelines to resolve the TypeScript error.
-        const API_KEY = process.env.API_KEY;
-        if (!API_KEY) {
-            // 這個錯誤現在只會在函數被調用且環境變數未設定時拋出
-            console.error("API_KEY environment variable is not set.");
-            throw new Error("API_KEY environment variable is not set.");
->>>>>>> cfeb1e82e82721e8aecacb44572044a9cdb536e4
         }
         
         // 使用從環境變數中獲取的金鑰初始化客戶端。
