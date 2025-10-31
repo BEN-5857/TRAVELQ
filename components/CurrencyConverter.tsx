@@ -3,9 +3,6 @@ import ResultCard from './ResultCard';
 import { CurrencyExchangeIcon, CameraIcon } from './Icons';
 import Spinner from './Spinner';
 
-// 擴充的貨幣列表
-const currencies = ['TWD', 'JPY', 'USD', 'KRW', 'CNY', 'THB', 'EUR', 'GBP', 'VND', 'MYR', 'HKD', 'SGD'];
-
 // 備用匯率 (以 TWD 為基準)
 const fallbackRates: { [key: string]: number } = {
   'TWD': 1, 'JPY': 4.9, 'USD': 0.031, 'KRW': 42.8, 'CNY': 0.22, 'THB': 1.14, 'EUR': 0.029, 'GBP': 0.025, 'VND': 787, 'MYR': 0.14, 'HKD': 0.24, 'SGD': 0.042,
@@ -22,6 +19,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
     const [tax, setTax] = useState('');
     const [result, setResult] = useState<number | null>(null);
     const [rates, setRates] = useState<{ [key: string]: number } | null>(null);
+    const [currencyList, setCurrencyList] = useState<string[]>(Object.keys(fallbackRates));
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [lastUpdated, setLastUpdated] = useState<string | null>(null);
@@ -35,6 +33,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
                     const { date, rates: cachedRates } = JSON.parse(cachedData);
                     if (date === today) {
                         setRates(cachedRates);
+                        setCurrencyList(Object.keys(cachedRates));
                         setLastUpdated(date);
                         setIsLoading(false);
                         return;
@@ -47,6 +46,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
                 
                 if (data.result === 'success') {
                     setRates(data.rates);
+                    setCurrencyList(Object.keys(data.rates));
                     setLastUpdated(today);
                     localStorage.setItem('exchangeRatesCache', JSON.stringify({ date: today, rates: data.rates }));
                 } else {
@@ -56,6 +56,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
                 console.error("Failed to fetch rates:", err);
                 setError(t.ratesUpdateError);
                 setRates(fallbackRates); // 使用備用匯率
+                setCurrencyList(Object.keys(fallbackRates));
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() -1);
                 setLastUpdated(yesterday.toISOString().split('T')[0]);
@@ -106,13 +107,13 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
                         <div>
                             <label className="block text-sm font-medium mb-1">{t.sourceCurrency}</label>
                             <select value={fromCurrency} onChange={e => setFromCurrency(e.target.value)} className="input-primary" disabled={isLoading}>
-                                {currencies.map(c => <option key={c} value={c}>{c}</option>)}
+                                {currencyList.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium mb-1">{t.targetCurrency}</label>
                             <select value={toCurrency} onChange={e => setToCurrency(e.target.value)} className="input-primary" disabled={isLoading}>
-                                {currencies.map(c => <option key={c} value={c}>{c}</option>)}
+                                {currencyList.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
                     </div>

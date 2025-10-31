@@ -18,7 +18,14 @@ const AdsenseBanner: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 w-full h-[60px] flex justify-center items-center bg-gray-900/50 backdrop-blur-sm z-50">
+    // 移除模糊和半透明背景，改用與主題一致的實心背景與邊線，使其更像頁面的一部分而非浮層
+    <div 
+      className="fixed bottom-0 left-0 w-full h-[60px] flex justify-center items-center z-50"
+      style={{
+        backgroundColor: 'var(--bg-color)',
+        borderTop: '1px solid var(--border-color)'
+      }}
+    >
       <ins
         className="adsbygoogle"
         style={{ 
@@ -29,8 +36,9 @@ const AdsenseBanner: React.FC = () => {
           width: '100%', 
           maxWidth: '728px', 
           height: '50px',
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-          color: 'rgba(255, 255, 255, 0.4)',
+          // 顏色使用 CSS 變數並加上透明度，使其在各種主題下都清晰可見但不過於突兀
+          color: 'var(--text-color)',
+          opacity: 0.5,
           fontSize: '0.875rem'
         }}
         data-ad-client="ca-pub-3043955817472909"
