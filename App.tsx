@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { ResultCard } from './components/MarkdownRenderer.tsx';
 
 // --- 多語言翻譯資源 ---
 const translations = {
@@ -187,6 +186,26 @@ const CloseIcon: React.FC = () => (
 );
 
 // --- 元件定義 ---
+
+interface ResultCardProps {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const ResultCard: React.FC<ResultCardProps> = ({ title, icon, children }) => {
+  return (
+    <div className="w-full card backdrop-blur-lg rounded-2xl shadow-2xl p-6 animate-fade-in">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="text-cyan-400">{icon}</div>
+        <h2 className="text-xl font-semibold">{title}</h2>
+      </div>
+      <div>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const Header: React.FC<{ lang: string, setLang: (l: string) => void, theme: string, setTheme: (t: string) => void, t: any }> = 
   ({ lang, setLang, theme, setTheme, t }) => {
