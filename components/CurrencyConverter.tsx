@@ -123,7 +123,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ t }) => {
                             <span className="text-2xl font-bold text-cyan-400">{result.toFixed(2)} {toCurrency}</span>
                         </div>
                     )}
-                    <a href="https://lens.google.com/" target="_blank" rel="noopener noreferrer" className="button-secondary w-full mt-4 flex items-center justify-center gap-2 text-center">
+                    <a href="https://images.google.com/" target="_blank" rel="noopener noreferrer" className="button-secondary w-full mt-4 flex items-center justify-center gap-2 text-center">
                         <CameraIcon /> {t.snapshotPriceCheck}
                     </a>
                     <div className="text-xs text-center mt-4 opacity-60">
