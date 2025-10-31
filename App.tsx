@@ -11,7 +11,7 @@ const translations = {
     taxRefundRate: '退稅率 (%)',
     finalPrice: '最終價格',
     snapshotPriceCheck: '快照查詢價格',
-    nearbyHotspots: '附近熱點查詢',
+    nearbyHotspots: '附近熱点查詢',
     lookingFor: '我想找',
     search: '查詢',
     copyright: '@2025 Made By 旅幫',
@@ -442,7 +442,7 @@ const Footer: React.FC<{ t: any }> = ({ t }) => {
         <footer className="w-full text-center py-6 mt-8 text-sm opacity-60">
             <p>{t.visitors}: {visitorCount.toLocaleString()}</p>
             <p>{t.copyright}</p>
-            <div className="mt-4 max-w-lg mx-auto p-4 border-2 border-dashed border-white/30 rounded-lg">
+            <div className="ad-banner">
                 {t.adPlaceholder}
             </div>
         </footer>
@@ -479,13 +479,20 @@ const App: React.FC = () => {
                     .theme-bg { background-color: var(--bg-color); }
                     .text-color { color: var(--text-color); }
                     .card { background-color: var(--card-bg); border: 1px solid var(--border-color); }
-                    .input-primary { background-color: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-color); width: 100%; padding: 0.75rem; border-radius: 0.5rem; transition: all 0.2s; -webkit-appearance: none; appearance: none; }
+                    .input-primary { background-color: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-color); width: 100%; padding: 0.75rem; border-radius: 0.5rem; transition: all 0.2s; -webkit-appearance: none; appearance: none; }
                     .input-primary:focus { ring: 2px; ring-color: #22d3ee; border-color: #22d3ee; }
                     .button-primary { padding: 0.75rem 1rem; background-color: #0891b2; color: white; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; border: none; }
                     .button-primary:hover:not(:disabled) { background-color: #06b6d4; }
                     .button-primary:disabled { background-color: #475569; cursor: not-allowed; }
                     .button-secondary { padding: 0.75rem 1rem; background-color: rgba(14, 165, 233, 0.2); color: #22d3ee; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; border: 1px solid #0e7490; }
                     .button-secondary:hover { background-color: rgba(14, 165, 233, 0.3); border-color: #06b6d4;}
+                    .ad-banner { margin-top: 1rem; max-width: 32rem; margin-left: auto; margin-right: auto; padding: 1rem; border: 2px dashed; border-radius: 0.5rem; }
+                    .theme-dark .ad-banner { border-color: rgba(255, 255, 255, 0.3); }
+                    .theme-light .ad-banner { border-color: #d1d5db; }
+                    .theme-morandi-blue .ad-banner { border-color: #7dd3fc; }
+                    .theme-morandi-green .ad-banner { border-color: #bbf7d0; }
+                    .theme-morandi-pink .ad-banner { border-color: #fbcfe8; }
+                    .theme-morandi-gray .ad-banner { border-color: #9ca3af; }
                 `}</style>
             </div>
         </div>
