@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { PaletteIcon, CameraIcon, MapPinIcon, CurrencyExchangeIcon, CloseIcon } from './components/Icons';
-import { ResultCard } from './components/MarkdownRenderer';
+import { PaletteIcon, CameraIcon, MapPinIcon, CurrencyExchangeIcon, CloseIcon } from './components/Icons.tsx';
+import { ResultCard } from './components/MarkdownRenderer.tsx';
 
 // --- 多語言翻譯資源 ---
 const translations = {
