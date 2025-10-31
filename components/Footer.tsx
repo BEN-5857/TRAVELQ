@@ -12,8 +12,8 @@ const Footer: React.FC<FooterProps> = ({ t }) => {
         let count = parseInt(localStorage.getItem('visitorCount') || '0', 10);
         
         if (count === 0) {
-            // First time visit on this browser, initialize with a random base between 0 and 999
-            count = Math.floor(Math.random() * 1000);
+            // First time visit on this browser, initialize with a fixed base number.
+            count = 999;
         }
         
         count += 1; // Increment for the current visit
