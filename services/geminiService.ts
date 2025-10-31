@@ -10,7 +10,7 @@ let ai: GoogleGenAI | null = null;
  */
 function getAiClient(): GoogleGenAI {
     if (!ai) {
-        // FIX: Per coding guidelines, the API key must be retrieved from process.env.API_KEY.
+        // Fix: Use process.env.API_KEY as per the coding guidelines to resolve the TypeScript error.
         const API_KEY = process.env.API_KEY;
         if (!API_KEY) {
             // 這個錯誤現在只會在函數被調用且環境變數未設定時拋出
