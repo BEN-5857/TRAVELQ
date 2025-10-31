@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-const AdsenseBanner: React.FC = () => {
+const InArticleAd: React.FC = () => {
   useEffect(() => {
     try {
       // 初始化廣告
@@ -18,42 +18,18 @@ const AdsenseBanner: React.FC = () => {
   }, []);
 
   return (
-    // 移除模糊和半透明背景，改用與主題一致的實心背景與邊線，使其更像頁面的一部分而非浮層
-    <div 
-      className="fixed bottom-0 left-0 w-full h-[60px] flex justify-center items-center z-50"
-      style={{
-        backgroundColor: 'var(--bg-color)',
-        borderTop: '1px solid var(--border-color)'
-      }}
-    >
+    // 這是一個容器，將廣告作為一個內容區塊放置在頁面流中
+    <div className="w-full max-w-2xl my-4">
       <ins
         className="adsbygoogle"
-        style={{ 
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-          width: '100%', 
-          maxWidth: '728px', 
-          height: '50px',
-          // 顏色使用 CSS 變數並加上透明度，使其在各種主題下都清晰可見但不過於突兀
-          color: 'var(--text-color)',
-          opacity: 0.5,
-          fontSize: '0.875rem'
-        }}
+        style={{ display: 'block', width: '100%', textAlign: 'center' }}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
         data-ad-client="ca-pub-3043955817472909"
-        data-ad-slot="8594833592"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      >
-        {/* 
-          此文字為開發預覽用的佔位符。
-          在您的正式網站上，Google AdSense 腳本會自動將其替換為真實廣告。
-        */}
-        廣告預覽版位 (Ad Preview)
-      </ins>
+        data-ad-slot="1570383953"
+      ></ins>
     </div>
   );
 };
 
-export default AdsenseBanner;
+export default InArticleAd;

@@ -3,7 +3,7 @@ import Header from './components/Header';
 import CurrencyConverter from './components/CurrencyConverter';
 import NearbySearch from './components/NearbySearch';
 import Footer from './components/Footer';
-import AdsenseBanner from './components/AdsenseBanner';
+import InArticleAd from './components/AdsenseBanner';
 
 // --- 多語言翻譯資源 ---
 const translations = {
@@ -128,16 +128,16 @@ const App: React.FC = () => {
         <div className={`min-h-screen w-full font-sans transition-colors duration-500 ${theme}`}>
             <div className="theme-bg text-color min-h-screen">
                 <Header lang={lang} setLang={setLang} setTheme={setTheme} t={t} themes={themes} />
-                <main className="container mx-auto p-4 pb-24 flex flex-col items-center gap-8">
+                <main className="container mx-auto p-4 flex flex-col items-center gap-8">
                     <div className="w-full max-w-2xl">
                         <CurrencyConverter t={t} />
                     </div>
                     <div className="w-full max-w-2xl">
                         <NearbySearch t={t} />
                     </div>
+                    <InArticleAd />
                     <Footer t={t} />
                 </main>
-                <AdsenseBanner />
                 <style>{`
                     .theme-dark { --bg-color: #111827; --text-color: #e5e7eb; --card-bg: rgba(255,255,255,0.05); --input-bg: rgba(255,255,255,0.1); --border-color: rgba(255,255,255,0.1); }
                     .theme-light { --bg-color: #f3f4f6; --text-color: #1f2937; --card-bg: rgba(255,255,255,0.8); --input-bg: #e5e7eb; --border-color: #d1d5db; }
