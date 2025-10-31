@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
 // 將 ai client 的初始化延遲，避免在 build time 就因找不到 API_KEY 而報錯
 let ai: GoogleGenAI | null = null;
@@ -10,18 +10,19 @@ let ai: GoogleGenAI | null = null;
  */
 function getAiClient(): GoogleGenAI {
     if (!ai) {
+        // FIX: Per coding guidelines, the API key must be retrieved from process.env.API_KEY.
         const API_KEY = process.env.API_KEY;
         if (!API_KEY) {
-            // 這個錯誤現在只會在函數被調用且 Vercel 環境變數未設定時拋出
+            // 這個錯誤現在只會在函數被調用且環境變數未設定時拋出
             console.error("API_KEY environment variable is not set.");
-            throw new Error("API_KEY 環境變數未設定，請在 Vercel 中設定。");
+            throw new Error("API_KEY environment variable is not set.");
         }
         ai = new GoogleGenAI({ apiKey: API_KEY });
     }
     return ai;
 }
 
-export async function findNearbyPlaces(query: string, location: { latitude: number, longitude: number }): Promise<any> {
+export async function findNearbyPlaces(query: string, location: { latitude: number, longitude: number }): Promise<GenerateContentResponse> {
   try {
     const client = getAiClient(); // 在實際需要時才獲取 client
     const response = await client.models.generateContent({
