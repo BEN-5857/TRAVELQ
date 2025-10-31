@@ -1,5 +1,5 @@
 {
-  "name": "1030-Copy of 旅行快查",
+  "name": "旅行快查",
   "description": "一個專為旅行者設計的快速工具，提供即時幣值換算、附近熱點查詢和拍照查價功能。",
   "requestFramePermissions": [
     "geolocation"
